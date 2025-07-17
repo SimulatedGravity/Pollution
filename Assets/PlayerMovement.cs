@@ -5,12 +5,14 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private Rigidbody2D rb;
+    public Rigidbody2D rb;
+    [SerializeField] private ParticleSystem boostParticles;
     [SerializeField] private float acceleration;
     [SerializeField] private float brakeForce;
     [SerializeField] private float jumpForce;
     [SerializeField] private float maxSpeed;
     public float grounded;
+    private bool doubleJump = true;
     public static PlayerMovement instance;
 
 
@@ -23,11 +25,23 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         grounded -= Time.deltaTime;
-        if (Input.GetButtonDown("Jump") && grounded > 0)
+        if (Input.GetButtonDown("Jump") && grounded < 0 && doubleJump)
         {
-            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-            transform.Translate(Vector2.up*0.01f);
-            grounded = 0;
+            boostParticles.Stop();
+            boostParticles.Play();
+            doubleJump = false;
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            transform.Translate(Vector2.up * 0.01f);
+        }
+        if (grounded > 0)
+        {
+            doubleJump = true;
+            if (Input.GetButtonDown("Jump"))
+            {
+                rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+                transform.Translate(Vector2.up * 0.01f);
+                grounded = 0;
+            }
         }
     }
 
