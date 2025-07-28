@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -7,19 +8,40 @@ public class PlayerMovement : MonoBehaviour
 {
     public Rigidbody2D rb;
     [SerializeField] private ParticleSystem boostParticles;
+    [SerializeField] private BoxCollider2D boxHitbox;
     [SerializeField] private float acceleration;
     [SerializeField] private float brakeForce;
     [SerializeField] private float jumpForce;
     [SerializeField] private float maxSpeed;
+    [SerializeField] private float holdHeight;
     public float grounded;
     private bool doubleJump = true;
-    public static PlayerMovement instance;
+    [NonSerialized] public static PlayerMovement instance;
+    private float throwForce;
+    public float maxThrowForce;
+    public float strength;
 
+    private Box heldBox;
+
+    public void BoxClicked(Box source)
+    {
+        if (heldBox == null)
+        {
+            throwForce = -1;
+            heldBox = source;
+            heldBox.rb.simulated = false;
+            boxHitbox.enabled = true;
+            heldBox.transform.position = transform.position + Vector3.up * holdHeight;
+            heldBox.transform.rotation = Quaternion.identity;
+            heldBox.transform.parent = transform;
+        }
+    }
 
     // Start is called before the first frame update
     void Awake()
     {
         instance = this;
+        boxHitbox.enabled = false;
     }
 
     private void Update()
@@ -42,6 +64,39 @@ public class PlayerMovement : MonoBehaviour
                 transform.Translate(Vector2.up * 0.01f);
                 grounded = 0;
             }
+        }
+
+        if (Input.GetButtonUp("Fire1"))
+        {
+            if (throwForce > 0.05)
+            {
+                heldBox.transform.parent = null;
+                boxHitbox.enabled = false;
+                heldBox.rb.simulated = true;
+                heldBox.rb.velocity = Vector3.Normalize(Camera.main.ScreenToWorldPoint(Input.mousePosition) - heldBox.transform.position)*(throwForce*strength+strength);
+                heldBox = null;
+            }
+        }
+        if (Input.GetButton("Fire1"))
+        {
+            if (throwForce != -1)
+            {
+                if (heldBox != null)
+                {
+                    if (throwForce < maxThrowForce)
+                    {
+                        throwForce += Time.deltaTime;
+                    }
+                }
+                else
+                {
+                    throwForce = 0;
+                }
+            }
+        }
+        else
+        {
+            throwForce = 0;
         }
     }
 
