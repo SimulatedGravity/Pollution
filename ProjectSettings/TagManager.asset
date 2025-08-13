@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Button
+  - Bottle
   layers:
   - Default
   - TransparentFX
@@ -12,7 +13,7 @@ TagManager:
   - player
   - Water
   - UI
-  - 
+  - ground
   - 
   - 
   - 

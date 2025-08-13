@@ -15,7 +15,11 @@ public class PlayerWheel : MonoBehaviour
     {
         player.grounded = cyoteTime;
     }
-    private void OnCollisionExit2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
+        if (collision.collider.gameObject.CompareTag("Respawn"))
+        {
+            player.Die();
+        }
     }
 }
