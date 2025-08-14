@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -14,6 +15,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private BoxCollider2D boxHitbox;
     [SerializeField] private Transform arrow;
     [SerializeField] private Image bar;
+    [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private float acceleration;
     [SerializeField] private float brakeForce;
     [SerializeField] private float jumpForce;
@@ -26,7 +28,8 @@ public class PlayerMovement : MonoBehaviour
     public float maxThrowForce;
     public float strength;
     public bool dead = false;
-
+    public int levelScore = 0;
+    static int totalScore = 0;
     private Box heldBox;
     private bool obstructed;
 
@@ -50,6 +53,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (collision.CompareTag("Finish"))
         {
+            totalScore += levelScore;
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
     }
@@ -66,6 +70,7 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("tutorial")) totalScore = 0;
         instance = this;
         boxHitbox.isTrigger = true;
     }
@@ -74,6 +79,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!dead)
         {
+            scoreText.text = levelScore.ToString();
             grounded -= Time.deltaTime;
             if (Input.GetButtonDown("Jump") && grounded < 0 && doubleJump)
             {

@@ -5,6 +5,7 @@ using UnityEngine;
 public class PressurePlate : MonoBehaviour
 {
     public Door door;
+    public Door antiDoor;
 
     private void OnCollisionStay2D(Collision2D collision)
     {
@@ -19,11 +20,16 @@ public class PressurePlate : MonoBehaviour
                 }
                 collision.collider.attachedRigidbody.velocity = new Vector2(newX, oldV.y);
             }
-            door.Open();
+            if(door != null) door.Open();
+            if (antiDoor != null) antiDoor.Close();
         }
     }
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.collider.CompareTag("Button")) door.Close();
+        if (collision.collider.CompareTag("Button"))
+        {
+            if (door != null) door.Close();
+            if (antiDoor != null) antiDoor.Open();
+        }
     }
 }

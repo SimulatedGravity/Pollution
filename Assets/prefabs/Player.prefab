@@ -5101,7 +5101,7 @@ GameObject:
   - component: {fileID: 1017356454991436892}
   m_Layer: 3
   m_Name: roboi wheel
-  m_TagString: Untagged
+  m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10357,7 +10357,7 @@ GameObject:
   - component: {fileID: 1017356455608611563}
   m_Layer: 3
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10439,6 +10439,7 @@ MonoBehaviour:
   boxHitbox: {fileID: 1017356454364872887}
   arrow: {fileID: 1017356455400007355}
   bar: {fileID: 1017356455748234253}
+  scoreText: {fileID: 0}
   acceleration: 80
   brakeForce: 100
   jumpForce: 9.5
@@ -10448,6 +10449,7 @@ MonoBehaviour:
   maxThrowForce: 1.2
   strength: 5
   dead: 0
+  levelScore: 0
 --- !u!1 &1017356455748234259
 GameObject:
   m_ObjectHideFlags: 0

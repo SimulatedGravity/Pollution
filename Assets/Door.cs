@@ -5,6 +5,16 @@ using UnityEngine;
 public class Door : MonoBehaviour
 {
     [SerializeField] private Animator animator;
+    public bool startOpen = false;
+
+    private void Start()
+    {
+        if (startOpen)
+        {
+            animator.SetBool("Open", true);
+        }
+
+    }
 
     public void Open()
     {
