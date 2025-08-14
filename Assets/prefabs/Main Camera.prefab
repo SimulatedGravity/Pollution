@@ -4914,7 +4914,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   offset: {x: 0, y: 0, z: 0}
   damping: 0.4
-  max_Y: 5
+  max_Y: 6
   min_Y: 0
   lookAhead: 1
 --- !u!114 &2729732974337390307

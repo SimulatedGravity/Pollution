@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class bottle : MonoBehaviour
+public class Bottle : MonoBehaviour
 {
     [SerializeField] Collider2D hitbox;
     [SerializeField] Animator animator;

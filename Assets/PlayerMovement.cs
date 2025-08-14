@@ -30,9 +30,17 @@ public class PlayerMovement : MonoBehaviour
     public bool dead = false;
     public int levelScore = 0;
     static int totalScore = 0;
+    public int levelMaxScore = 0;
+    static int totalMaxScore = 0;
     private Box heldBox;
     private bool obstructed;
 
+    private void Start()
+    {
+        Bottle[] bottles = FindObjectsOfType<Bottle>();
+        levelMaxScore = bottles.Length;
+        totalMaxScore += levelMaxScore;
+    }
     public void BoxClicked(Box source)
     {
         if (heldBox == null)
@@ -70,7 +78,11 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("tutorial")) totalScore = 0;
+        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("tutorial")) 
+        {
+            totalScore = 0;
+            totalMaxScore = 0;
+        }
         instance = this;
         boxHitbox.isTrigger = true;
     }
@@ -79,7 +91,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!dead)
         {
-            scoreText.text = levelScore.ToString();
+            scoreText.text = levelScore.ToString() + "/" + levelMaxScore.ToString();
             grounded -= Time.deltaTime;
             if (Input.GetButtonDown("Jump") && grounded < 0 && doubleJump)
             {
