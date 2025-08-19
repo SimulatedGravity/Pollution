@@ -99,6 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   door: {fileID: 0}
+  antiDoor: {fileID: 0}
 --- !u!61 &8971350554323353356
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -200,7 +201,7 @@ PolygonCollider2D:
   m_GameObject: {fileID: 8971350555049070670}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 10d7d83f92de2844880bdd91b4221083, type: 2}
+  m_Material: {fileID: 6200000, guid: d66a3176dfa431946b3bda5bd5659ab9, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -230,7 +231,7 @@ PolygonCollider2D:
   m_GameObject: {fileID: 8971350555049070670}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 10d7d83f92de2844880bdd91b4221083, type: 2}
+  m_Material: {fileID: 6200000, guid: d66a3176dfa431946b3bda5bd5659ab9, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0

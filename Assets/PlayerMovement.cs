@@ -62,7 +62,18 @@ public class PlayerMovement : MonoBehaviour
         if (collision.CompareTag("Finish"))
         {
             totalScore += levelScore;
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            if (SceneManager.GetActiveScene().buildIndex == 2)
+            {
+                if (totalScore == totalMaxScore)
+                {
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+                }
+                else
+                {
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2);
+                }
+            }
+            else SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
     }
 
